@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Detectives del error · SIMCE Matemática 2° medio</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f4f8fc;--grid:#d5e2ef;--fg:#14213d;--mut:#51607a;--card:#fffffe;--line:#b9c9dc;--ac:#1d4ed8;--on:#fff;--ok:#0f8a6e;--bad:#d62839;--okbg:#d9f5ec;--badbg:#ffe3e6;--hl:#ffe44d;
+--oa:#d62839;--ob:#1d4ed8;--oc:#b45309;--od:#0f8a6e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1628;--grid:#1b2742;--fg:#eaf0fb;--mut:#9fb0cc;--card:#16213a;--line:#2d3d5e;--ac:#7aa2ff;--on:#0e1628;--ok:#4fd1a8;--bad:#ff6b7a;--okbg:#0f3a30;--badbg:#431a22}}
+:root[data-theme="dark"]{--bg:#0e1628;--grid:#1b2742;--fg:#eaf0fb;--mut:#9fb0cc;--card:#16213a;--line:#2d3d5e;--ac:#7aa2ff;--on:#0e1628;--ok:#4fd1a8;--bad:#ff6b7a;--okbg:#0f3a30;--badbg:#431a22}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:26px 26px;color:var(--fg);font:18px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1120px;margin:0 auto;padding:16px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.hl{background:var(--hl);color:#14213d;padding:2px 12px;border-radius:4px;font-weight:800;font-size:20px}
+button{font-family:inherit;font-size:16px;font-weight:600;border:1.5px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 14px;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--ac);outline-offset:2px}
+button.p{background:var(--ac);color:var(--on);border-color:transparent}
+button:disabled{opacity:.4;cursor:default}
+.teams{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:12px 0}
+.team{background:var(--card);border:1.5px solid var(--line);border-left:8px solid var(--tc);border-radius:10px;padding:8px 10px}
+.team input{width:100%;font-family:inherit;font-size:15px;font-weight:700;border:0;background:transparent;color:var(--fg);padding:0}
+.team .r{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.sc{font-size:30px;font-weight:800;font-variant-numeric:tabular-nums}
+.team .b button{padding:3px 8px;font-size:14px;margin-left:2px}
+.stage{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:clamp(16px,3vw,32px);min-height:360px}
+.badge{display:inline-block;background:var(--ac);color:var(--on);border-radius:999px;padding:2px 14px;font-size:15px;font-weight:700}
+h1,h2{margin:.4em 0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,48px)}
+.q{font-size:clamp(21px,3vw,30px);font-weight:600;margin:14px 0 18px;max-width:46em}
+.mut{color:var(--mut)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.opt{position:relative;overflow:hidden;border-radius:12px;padding:16px 18px;color:#fff;font-size:clamp(20px,2.6vw,28px);font-weight:700;display:flex;gap:14px;align-items:center}
+.opt b{display:grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;background:#fff;color:#14213d;font-size:.95em}
+.opt.dim{opacity:.35}
+.opt.ok{outline:5px solid var(--ok);outline-offset:3px}
+.pct{margin-left:auto;font-size:.8em}
+.bar{position:absolute;left:0;bottom:0;height:7px;background:#fff}
+.tbox{display:flex;align-items:center;gap:12px;margin-top:20px;flex-wrap:wrap}
+.timer{font-size:54px;font-weight:800;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--bad)}
+.line{display:flex;gap:12px;width:100%;text-align:left;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:12px 16px;margin:8px 0;font:inherit;font-size:clamp(18px,2.4vw,24px);font-weight:500;color:inherit}
+.line.bad{background:var(--hl);color:#14213d;border-color:var(--bad)}
+.line.fine{opacity:.5}
+.note{border-left:6px solid var(--ac);background:var(--bg);padding:10px 16px;border-radius:8px;margin:16px 0}
+.sol{background:var(--okbg);border-left:6px solid var(--ok);padding:10px 16px;border-radius:8px;margin:16px 0;font-size:1.1em}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+ol,ul{margin:.4em 0;padding-left:1.3em}
+.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.team input{border-bottom:1.5px dashed var(--line);cursor:text}
+.pod{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:16px 0}
+.pod>div{flex:1;max-width:280px;text-align:center;border-radius:12px 12px 0 0;padding:12px 8px;color:#14213d;font-size:34px;font-weight:800}
+.pod .pn{font-size:22px;line-height:1.2;min-height:2.6em}
+.pod .p1{background:#ffd54a;min-height:250px}.pod .p2{background:#d5dbe3;min-height:190px}.pod .p3{background:#e8b07a;min-height:150px}
+li{margin:.25em 0}
+</style>
+<script>window.MathJax={tex:{inlineMath:[["$","$"]]},svg:{fontCache:"global"}};</script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="hl">🕵️ Detectives del error</span>
+    <div><button id="prev" onclick="go(-1)">← Anterior</button> <span id="pos" class="mut"></span> <button id="next" class="p" onclick="go(1)">Siguiente →</button></div>
+  </div>
+  <div class="tools"><button onclick="addTeam()">＋ Agregar equipo</button><button onclick="delTeam()">− Quitar último equipo</button><span class="mut">Escribe sobre el nombre para cambiarlo.</span></div>
+  <div class="teams" id="teams"></div>
+  <main class="stage" id="stage"></main>
+</div>
+<script>
+const C=["#d62839","#1d4ed8","#e0a100","#0f8a6e","#7c3aed","#ea580c","#0891b2","#be185d","#4d7c0f","#475569"],sc=[];
+const L=["A","B","C","D"], OC=["--oa","--ob","--oc","--od"];
+const I=[
+{n:10,pg:4,q:"Sobre la diagonal de un cuadrado de lado 1 cm se dibujó otro cuadrado (figura de la pág. 4). ¿Cuánto mide el perímetro del área gris?",o:["$3$","$3@sqrt{2}$","$5@sqrt{2}$","$3@sqrt{2}+2$"],c:3,course:[23,40,23,11],trap:"B",
+ trapTxt:"Cuentan solo los 3 lados del cuadrado grande y olvidan el borde interior: los dos catetos del triángulo blanco (1 + 1) también son perímetro del área gris.",
+ lines:["La diagonal del cuadrado de lado 1 mide $@sqrt{2}$.","Entonces el cuadrado grande tiene lado $@sqrt{2}$.","El perímetro gris son 3 lados del cuadrado grande: $3@sqrt{2}$."],bad:2,
+ sol:"$3@sqrt{2}+1+1=3@sqrt{2}+2$ (los tres lados del cuadrado grande más los dos catetos del triángulo blanco)"},
+{n:29,pg:12,q:"En la figura de la pág. 12, $DE @parallel BC$, con $AE=x$, $EC=p$, $BC=y$ y $DE=q$. ¿Cuál igualdad siempre es verdadera?",o:["$@dfrac{x}{q}=@dfrac{p}{y}$","$@dfrac{x}{y}=@dfrac{p}{q}$","$@dfrac{x}{q}=@dfrac{x+p}{y}$","$@dfrac{x}{q}=@dfrac{q+y}{p}$"],c:2,course:[46,29,14,11],trap:"A",
+ trapTxt:"Mezclan la parte con el todo: usan $p$ (solo el tramo $EC$) en lugar del lado completo $AC=x+p$.",
+ lines:["$DE @parallel BC$, así que los triángulos $ADE$ y $ABC$ son semejantes.","Sus lados son proporcionales: $@dfrac{x}{q}=@dfrac{p}{y}$.","Por lo tanto, la igualdad A es la correcta."],bad:1,
+ sol:"$@dfrac{AE}{AC}=@dfrac{DE}{BC}@;@Rightarrow@;@dfrac{x}{x+p}=@dfrac{q}{y}@;@Rightarrow@;@dfrac{x}{q}=@dfrac{x+p}{y}$"},
+{n:26,pg:10,q:"Dos sectores circulares del mismo radio (pág. 10): a uno le falta un ángulo de $45^@circ$ y al otro uno de $60^@circ$. La diferencia positiva entre sus perímetros es $@pi$ cm. ¿Cuánto mide el radio?",o:["$@pi$ cm","$12$ cm","$15$ cm","$24$ cm"],c:1,
+ trapTxt:"Probablemente usan $@pi r$ en lugar de $2@pi r$ para la circunferencia completa: con $@pi r$ sale 24 cm; con $2@pi r$ sale 12 cm.",
+ lines:["Cada sector es el círculo menos el ángulo que falta: arcos de $315^@circ$ y $300^@circ$.","Los radios se cancelan: la diferencia de perímetros es la diferencia de arcos, $15^@circ$ de la circunferencia.","$@dfrac{15}{360}@cdot@pi r=@pi@;@Rightarrow@;r=24$ cm."],bad:2,
+ sol:"Arcos de $315^@circ$ y $300^@circ$: diferencia de $15^@circ$. $@dfrac{15}{360}@cdot 2@pi r=@pi@;@Rightarrow@;@dfrac{@pi r}{12}=@pi@;@Rightarrow@;r=12$ cm"},
+{n:21,pg:8,q:"¿Cuál opción muestra la función inversa de $f(x)=2x+4$?",o:["$f^{-1}(x)=@dfrac{x-4}{2}$","$f^{-1}(x)=@dfrac{x}{2}-4$","$f^{-1}(x)=@dfrac{1}{2x+4}$","$f^{-1}(x)=-2x-4$"],c:0,
+ trapTxt:"Probablemente deshacen las operaciones en el mismo orden (dividir y luego restar). Para invertir hay que ir en orden contrario: primero restar 4 y luego dividir por 2.",
+ lines:["$f$ multiplica por 2 y después suma 4.","Para volver atrás, divido por 2 y después resto 4.","Entonces $f^{-1}(x)=@dfrac{x}{2}-4$."],bad:1,
+ sol:"$y=2x+4@;@Rightarrow@;x=@dfrac{y-4}{2}@;@Rightarrow@;f^{-1}(x)=@dfrac{x-4}{2}$. Comprobación: $f^{-1}(10)=3$ y $f(3)=10$"},
+{n:23,pg:9,q:"Dos espacios con forma de trapecio (pág. 9), ambos de altura 4 m: uno con bases de 4 m y 5 m, el otro con bases de 4 m y 6 m. ¿Por cuánto supera el área del mayor al área del menor?",o:["$1@text{ m}^2$","$2@text{ m}^2$","$4@text{ m}^2$","$8@text{ m}^2$"],c:1,course:[51,23,20,6],trap:"A",
+ trapTxt:"Probablemente comparan las bases (6 − 5 = 1) en vez de calcular las dos áreas y restarlas.",
+ lines:["Trapecio 1: bases 4 y 5. Trapecio 2: bases 4 y 6. Altura 4 en ambos.","Comparo lo que cambia entre ellos: 6 − 5 = 1.","El espacio mayor supera al menor por 1 m²."],bad:1,
+ sol:"$A_1=@dfrac{4+5}{2}@cdot 4=18@text{ m}^2$; $A_2=@dfrac{4+6}{2}@cdot 4=20@text{ m}^2$; diferencia: $20-18=2@text{ m}^2$"},
+{n:25,pg:10,q:"Un cono tiene radio basal 6 cm, altura 8 cm y generatriz 10 cm (pág. 10). ¿Cuánto mide su volumen?",o:["$12@pi@text{ cm}^3$","$24@pi@text{ cm}^3$","$60@pi@text{ cm}^3$","$96@pi@text{ cm}^3$"],c:3,course:[9,31,37,23],trap:"C",
+ trapTxt:"$60@pi$ es el área lateral ($@pi r g=@pi@cdot 6@cdot 10$): confunden área con volumen y usan la generatriz en lugar de la altura.",
+ lines:["Radio 6 cm, altura 8 cm y generatriz 10 cm.","Calculo con la generatriz: $@pi@cdot 6@cdot 10=60@pi$.","El volumen del cono es $60@pi@text{ cm}^3$."],bad:1,
+ sol:"$V=@dfrac{1}{3}@pi r^2 h=@dfrac{1}{3}@cdot@pi@cdot 36@cdot 8=96@pi@text{ cm}^3$"}];
+const K=[
+{q:"Sobre la diagonal de un cuadrado de lado 2 cm se dibuja otro cuadrado, igual que en el ítem 10. ¿Cuánto mide el perímetro del área gris?",o:["$6@sqrt{2}$","$8@sqrt{2}$","$6@sqrt{2}+4$","$4@sqrt{2}+4$"],c:2,trapTxt:"Ojo con el borde interior: hay que sumar también los dos catetos del triángulo blanco.",sol:"$3@cdot 2@sqrt{2}+2+2=6@sqrt{2}+4$"},
+{q:"Un trapecio tiene bases de 3 m y 5 m; otro, bases de 3 m y 7 m. Ambos tienen altura 4 m. ¿Por cuánto supera el área del mayor al área del menor?",o:["$2@text{ m}^2$","$4@text{ m}^2$","$8@text{ m}^2$","$16@text{ m}^2$"],c:1,trapTxt:"Ojo: se comparan áreas, no bases (7 − 5 = 2 es la trampa).",sol:"$A_1=@dfrac{3+5}{2}@cdot 4=16@text{ m}^2$; $A_2=@dfrac{3+7}{2}@cdot 4=20@text{ m}^2$; diferencia: $20-16=4@text{ m}^2$"},
+{q:"Un cono tiene radio 3 cm, altura 4 cm y generatriz 5 cm. ¿Cuánto mide su volumen?",o:["$12@pi@text{ cm}^3$","$15@pi@text{ cm}^3$","$20@pi@text{ cm}^3$","$36@pi@text{ cm}^3$"],c:0,trapTxt:"Ojo: $15@pi$ es el área lateral ($@pi@cdot 3@cdot 5$), no el volumen.",sol:"$V=@dfrac{1}{3}@pi@cdot 3^2@cdot 4=12@pi@text{ cm}^3$"}];
+const S=[{t:"intro"}];
+I.forEach(i=>["reto","sol","rev"].forEach(t=>S.push({t,i})));
+K.forEach(k=>["treto","tsol","rev"].forEach(t=>S.push({t,i:k})));
+S.push({t:"fin"});
+let n=0,tm=null,left=90;
+const $=id=>document.getElementById(id);
+const fx=s=>s.replace(/@/g,String.fromCharCode(92));
+const tx=e=>{if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([e])};
+const tb=$("teams");
+function addTeam(){const k=sc.length;if(k>=10)return;sc.push(0);const t=["Equipo "+(k+1),C[k]];const d=document.createElement("div");d.className="team";d.style.setProperty("--tc",t[1]);
+ d.innerHTML=`<input value="${t[0]}" aria-label="Nombre del equipo ${k+1}"><div class="r"><span class="sc" id="s${k}">0</span><span class="b"><button data-k="${k}" data-v="1">+1</button><button data-k="${k}" data-v="2">+2</button><button data-k="${k}" data-v="-1" aria-label="Restar uno">−1</button></span></div>`;tb.appendChild(d)}
+function delTeam(){if(sc.length<=2)return;sc.pop();tb.lastElementChild.remove()}
+for(let k=0;k<8;k++)addTeam();
+tb.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const k=+b.dataset.k;sc[k]+=+b.dataset.v;$("s"+k).textContent=sc[k]});
+let rev=0;
+const nm=k=>tb.querySelectorAll("input")[k].value||"Equipo "+(k+1);
+function rank(){const o=[...sc.keys()].sort((a,b)=>sc[b]-sc[a]);let r=0;return o.map((k,j)=>{if(j===0||sc[k]<sc[o[j-1]])r=j+1;return{k,r}})}
+function podio(){const R=rank(),B=["Revelar el 3.er lugar","Revelar el 2.º lugar","Revelar el 1.er lugar"],M=["🥇","🥈","🥉"];
+ const col=p=>{const t=R.filter(x=>x.r===p),v=rev>=4-p;return `<div class="p${p}">${M[p-1]}<div class="pn">${v?(t.length?t.map(x=>nm(x.k)).join(" y "):"—"):"?"}</div><div>${v&&t.length?sc[t[0].k]+" pts":"&nbsp;"}</div></div>`};
+ return `<h1>🏆 Premiación</h1><div class="pod">${col(2)}${col(1)}${col(3)}</div>`+(rev<3?`<button class="p" onclick="rev++;render()">${B[rev]}</button>`:`<div class="note"><b>Ranking final</b>${R.map(x=>`<div>${x.r}.º ${nm(x.k)}: ${sc[x.k]} pts</div>`).join("")}<p class="mut">¿Empate? Desempaten con un ítem relámpago del cuadernillo.</p></div>`)}
+function opts(i,sol){return `<div class="opts">`+i.o.map((x,k)=>{
+ const cl=sol?(k===i.c?"ok":"dim"):"";
+ const p=sol&&i.course?`<span class="pct">${i.course[k]}%</span><span class="bar" style="width:${i.course[k]}%"></span>`:"";
+ return `<div class="opt ${cl}" style="background:var(${OC[k]})"><b>${L[k]}</b><span>${x}</span>${p}</div>`}).join("")+`</div>`}
+function setT(){const e=$("tm");if(!e)return;e.textContent=Math.floor(left/60)+":"+String(left%60).padStart(2,"0");e.classList.toggle("low",left<=10)}
+function startT(){clearInterval(tm);tm=setInterval(()=>{if(left>0){left--;setT();if(left===0)$("go").hidden=false}},1000)}
+function resetT(){clearInterval(tm);left=["treto","rev"].includes(S[n].t)?60:90;setT();$("go").hidden=true}
+function revi(i){return `<span class="badge">${i.n?"Ítem "+i.n:"Ticket de salida"} · Revisión de láminas</span><h2>La respuesta correcta es la letra <span class="hl">${L[i.c]}</span></h2>
+<ol class="q"><li>Cada equipo muestra su lámina.</li><li>Revisa lámina por lámina y suma ${i.n?"+2":"+1"} (botones del marcador) a los equipos que acertaron.</li><li>Borren la lámina para la siguiente ronda.</li></ol>
+<div class="tbox"><span class="timer" id="tm"></span><button class="p" onclick="startT()">▶ Iniciar</button><button onclick="resetT()" aria-label="Reiniciar reloj">↺</button><strong id="go" hidden>¡Tiempo! A borrar las láminas</strong></div>`}
+function pick(k){const i=S[n].i;if(k===i.bad)show();else $("l"+k).classList.add("fine")}
+function show(){const i=S[n].i;$("l"+i.bad).classList.add("bad");$("wy").innerHTML=fx(`<div class="note"><b>Aquí está la falla.</b> ${i.trapTxt}</div>`);tx($("wy"))}
+function reto(i,tk){return `<span class="badge">${tk?"Ticket de salida":"Ítem "+i.n+" · cuadernillo, pág. "+i.pg}</span><p class="q">${i.q}</p>${opts(i)}
+<div class="tbox"><span class="timer" id="tm"></span><button class="p" onclick="startT()">▶ Iniciar</button><button onclick="resetT()" aria-label="Reiniciar reloj">↺</button><strong id="go" hidden>¡Láminas arriba!</strong></div>
+<p class="mut">${tk?"Escriban la letra en la lámina. Cada acierto suma +1.":"Discutan en equipo y escriban la letra en la lámina. A la señal, muéstrenla. Acierto: +2."}</p>`}
+function render(){
+ clearInterval(tm);const s=S[n],i=s.i;left=s.t==="treto"||s.t==="rev"?60:90;let h="";
+ if(s.t==="intro")h=`<h1>Detectives del error</h1><p class="q">Preparación SIMCE · Matemática 2° medio · 60 minutos</p>
+<div class="cols"><div class="note"><b>Cómo se juega</b><ol><li>Equipos de 4 estudiantes. Cada equipo recibe una lámina en la que puede escribir una letra y borrarla, para reutilizar la misma lámina en todas las rondas.</li><li>Aparece un ítem del ensayo. Tienen 90 segundos para discutir y escribir en la lámina la letra elegida (A, B, C o D). A la señal, la muestran.</li><li>Se revela la respuesta y cómo votó el curso en el ensayo.</li><li>Revisión: se miran las láminas, se asigna el puntaje a cada equipo y se borran para la siguiente ronda.</li></ol></div>
+<div class="note"><b>Puntos</b><ul><li>+2 si la letra de la lámina es correcta</li><li>+1 al equipo que mejor explique su respuesta (opcional, a criterio del docente)</li><li>Ticket de salida: +1 por acierto</li><li>Al final se premian los 3 primeros lugares</li></ul><b>Materiales:</b> cuadernillo EMN4 proyectado (págs. 4, 8, 9, 10 y 12), una lámina borrable por equipo.<br><b>Equipos:</b> escribe sobre el nombre para cambiarlo; usa “Agregar equipo” para sumar más (hasta 10).<br><b>Tiempos:</b> inicio 5 min, 6 ítems de 7 min (con revisión de láminas), ticket 8 min, premiación 5 min.</div></div>`;
+ else if(s.t==="reto"||s.t==="treto")h=reto(i,s.t==="treto");
+ else if(s.t==="det")h=`<span class="badge">Ítem ${i.n} · Detective</span><h2>Esta resolución tiene UNA línea con falla. ¿Cuál es?</h2>`+i.lines.map((l,k)=>`<button class="line" id="l${k}" onclick="pick(${k})"><b>${k+1}.</b><span>${l}</span></button>`).join("")+`<div id="wy"></div><button onclick="show()">Mostrar la falla</button>`;
+ else if(s.t==="sol"||s.t==="tsol")h=`<span class="badge">${i.n?"Ítem "+i.n+" · Solución":"Ticket de salida · Solución"}</span><p class="q">${i.q}</p>${opts(i,1)}${i.course?`<p class="mut">Las barras muestran cómo respondió el curso en el ensayo.</p>`:""}<div class="note"><b>${i.course?"Trampa más votada (opción "+i.trap+"):":"Trampa:"}</b> ${i.trapTxt}</div><div class="sol"><b>Resolución:</b> ${i.sol}</div>`;
+ else if(s.t==="rev")h=revi(i);
+ else if(s.t==="fin")h=podio();
+ else{const o=[...sc.keys()].sort((a,b)=>sc[b]-sc[a]);
+  h=`<h1>Ronda final: diseña la trampa</h1><p class="q">Cada equipo inventa un ítem gemelo del 29 (Thales) con 4 alternativas. Una debe ser una trampa hecha a propósito, y el equipo explica qué error atrapa. Intercambian ítems y los resuelven. El curso vota la trampa más ingeniosa (+3).</p><div class="cols"><div class="note"><b>Ticket de cierre</b><br>Completa: “Hoy descubrí que me equivoco cuando…”</div><div class="sol"><b>Puntajes</b><ol>${o.map((k,r)=>`<li>${["🥇","🥈","🥉"][r]||""} ${nm(k)}: ${sc[k]} pts</li>`).join("")}</ol></div></div>`}
+ $("stage").innerHTML=fx(h);setT();tx($("stage"));$("pos").textContent=(n+1)+" / "+S.length;$("prev").disabled=n===0;$("next").disabled=n===S.length-1}
+function go(d){rev=0;n=Math.max(0,Math.min(S.length-1,n+d));render()}
+document.addEventListener("keydown",e=>{if(e.target.tagName==="INPUT")return;if(e.key==="ArrowRight")go(1);if(e.key==="ArrowLeft")go(-1)});
+render();
+</script>
+</body>
+</html>
